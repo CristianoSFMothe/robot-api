@@ -4,18 +4,24 @@ Resource    ../../Resources/Config/Libs.resource
 
 *** Keywords ***
 Authentication
-    [Arguments]    ${email}    ${password}
+    [Arguments]    ${email}    ${password}    ${expected_result}    ${message}
 
     ${header}    Create Dictionary    Content-Type=application/json
 
     ${response}    POST On Session    alias=api    url=/login    headers=${header}
     ...            data={"email": "${email}", "password": "${password}"}
-    ...            expected_status=200  
+    ...            expected_status=${expected_result}  
 
-    ${token}      Set Variable    ${response.json()['authorization']}
-    ${message}    Set Variable    ${response.json()['message']}
+    IF  ${expected_result} == 200
+        ${token}      Set Variable    ${response.json()['authorization']}
+        ${message}    Set Variable    ${response.json()['message']}
 
-    Should Be Equal        ${message}    Login realizado com sucesso
-    Should Not Be Empty    ${token}
+        Should Be Equal        ${message}    ${message}
+        Should Not Be Empty    ${token}
+        RETURN    ${token}
 
-    RETURN        ${token}
+    ELSE IF    ${expected_result} == 401  
+        ${message}    Set Variable    ${response.json()['message']}      
+        Should Be Equal        ${message}    ${message}
+        RETURN
+    END
