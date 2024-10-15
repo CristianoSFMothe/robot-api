@@ -1,21 +1,9 @@
 *** Settings ***
 
-Library        RequestsLibrary
-
-Suite Setup            Criar Sessão
-Suite Teardown         Encerrar Sessão
-
-*** Test Cases ***
-Cenário 1 - Criar Usuário
-
-    ${user_id}    Criação de Usuário    
-    Buscar Usuário       user_id=${user_id}
-    Atualizar Usuário    user_id=${user_id}
-    Buscar Usuário       user_id=${user_id}
-    Deletar Usuário      user_id=${user_id}       
+Resource    ../../Resources/Config/Libs.resource
 
 *** Keywords ***
-Criação de Usuário
+User Creation
     
     ${header}    Create Dictionary    Content-Type=application/json
     
@@ -32,7 +20,7 @@ Criação de Usuário
     
     RETURN       ${user_id}
 
-Buscar Usuário
+Search User
     [Arguments]    ${user_id}    
 
     ${response}    GET On Session    alias=api      url=/usuarios/${user_id}
@@ -41,7 +29,7 @@ Buscar Usuário
     ${email}    Set Variable    ${response.json()['email']}
     Should Be Equal    ${email}    cristiano@email.com     
 
-Atualizar Usuário
+Update User
     [Arguments]    ${user_id}
 
     ${header}    Create Dictionary    Content-Type=application/json
@@ -52,7 +40,7 @@ Atualizar Usuário
     ${retorno_put}    Set Variable    ${response.json()}
 
     
-Deletar Usuário
+Delete User
     [Arguments]    ${user_id}    
 
     ${response}    DELETE On Session    alias=api    url=/usuarios/${user_id}
@@ -61,11 +49,3 @@ Deletar Usuário
     ${message}    Set Variable    ${response.json()['message']}
 
     Should Be Equal    ${message}    Registro excluído com sucesso
-
-Criar Sessão
-
-    Create Session    alias=api    url=http://localhost:3000
-
-Encerrar Sessão
-
-    Delete All Sessions
