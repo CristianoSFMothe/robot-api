@@ -19,6 +19,7 @@ User Creation
     Should Be Equal    ${user_id}    ${user_id}    
     
     RETURN       ${user_id}
+    
 
 Search User
     [Arguments]    ${user_id}    
