@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1 (Python 3.10.12 on linux)" generated="2024-10-14T22:13:45.014707" rpa="false" schemaversion="5">
+<suite id="s1" name="TestCases" source="/home/cristiano/Documentos/workspace/robot-api/TestCases">
+<suite id="s1-s1" name="Tests" source="/home/cristiano/Documentos/workspace/robot-api/TestCases/tests.robot">
+<test id="s1-s1-t1" name="Cenário 1 - Criar Usuário" line="6">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-10-14T22:13:45.101891" level="INFO">Creating Session using : alias=api, url=http://localhost:3000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=api</arg>
+<arg>url=http://localhost:3000</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-10-14T22:13:45.101754" elapsed="0.000269"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-14T22:13:45.102342" level="INFO">${header} = {'Content-Type': 'application/json'}</msg>
+<var>${header}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.102155" elapsed="0.000205"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2024-10-14T22:13:45.108937" level="INFO">POST Request : url=http://localhost:3000/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '109'} 
+ body={"nome": "Cristiano Ferreira", "email": "cristiano@email.com", "password": "Abc123", "administrador": "true"} 
+ </msg>
+<msg time="2024-10-14T22:13:45.109011" level="INFO">POST Response : url=http://localhost:3000/usuarios 
+ status=201, reason=Created 
+ headers={'Access-Control-Allow-Origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '82', 'Date': 'Tue, 15 Oct 2024 01:13:45 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "G7OxEeuoJPiZXDF1"
+} 
+ </msg>
+<msg time="2024-10-14T22:13:45.109110" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/usuarios</arg>
+<arg>headers=${header}</arg>
+<arg>data={"nome": "Cristiano Ferreira", "email": "cristiano@email.com", "password": "Abc123", "administrador": "true"}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.102451" elapsed="0.006678"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-14T22:13:45.109750" level="INFO">${USER_ID} = G7OxEeuoJPiZXDF1</msg>
+<var>${USER_ID}</var>
+<arg>${response.json()['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.109322" elapsed="0.000450"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${USER_ID}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.109891" elapsed="0.000123"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-10-14T22:13:45.112017" level="INFO">GET Request : url=http://localhost:3000/usuarios/G7OxEeuoJPiZXDF1 
+ path_url=/usuarios/G7OxEeuoJPiZXDF1 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-10-14T22:13:45.112172" level="INFO">GET Response : url=http://localhost:3000/usuarios/G7OxEeuoJPiZXDF1 
+ status=200, reason=OK 
+ headers={'Access-Control-Allow-Origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '158', 'Date': 'Tue, 15 Oct 2024 01:13:45 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={
+    "nome": "Cristiano Ferreira",
+    "email": "cristiano@email.com",
+    "password": "Abc123",
+    "administrador": "true",
+    "_id": "G7OxEeuoJPiZXDF1"
+} 
+ </msg>
+<msg time="2024-10-14T22:13:45.112332" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/usuarios/${USER_ID}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.110097" elapsed="0.002253"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-14T22:13:45.112831" level="INFO">${retorno_get} = {'nome': 'Cristiano Ferreira', 'email': 'cristiano@email.com', 'password': 'Abc123', 'administrador': 'true', '_id': 'G7OxEeuoJPiZXDF1'}</msg>
+<var>${retorno_get}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.112484" elapsed="0.000365"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${retorno_get}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.112945" elapsed="0.000141"/>
+</kw>
+<kw name="PUT On Session" owner="RequestsLibrary">
+<msg time="2024-10-14T22:13:45.115687" level="INFO">PUT Request : url=http://localhost:3000/usuarios/G7OxEeuoJPiZXDF1 
+ path_url=/usuarios/G7OxEeuoJPiZXDF1 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '106'} 
+ body={"nome": "Cristiano Mothe", "email": "cristiano@email.com", "password": "Abc123", "administrador": "true"} 
+ </msg>
+<msg time="2024-10-14T22:13:45.115752" level="INFO">PUT Response : url=http://localhost:3000/usuarios/G7OxEeuoJPiZXDF1 
+ status=200, reason=OK 
+ headers={'Access-Control-Allow-Origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '50', 'Date': 'Tue, 15 Oct 2024 01:13:45 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={
+    "message": "Registro alterado com sucesso"
+} 
+ </msg>
+<arg>alias=api</arg>
+<arg>url=/usuarios/${USER_ID}</arg>
+<arg>headers=${header}</arg>
+<arg>data={"nome": "Cristiano Mothe", "email": "cristiano@email.com", "password": "Abc123", "administrador": "true"}</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.113213" elapsed="0.002591"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-14T22:13:45.116436" level="INFO">${retorno_put} = {'nome': 'Cristiano Ferreira', 'email': 'cristiano@email.com', 'password': 'Abc123', 'administrador': 'true', '_id': 'G7OxEeuoJPiZXDF1'}</msg>
+<var>${retorno_put}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.115986" elapsed="0.000472"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${retorno_put}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.116592" elapsed="0.000127"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-10-14T22:13:45.119663" level="INFO">GET Request : url=http://localhost:3000/usuarios/G7OxEeuoJPiZXDF1 
+ path_url=/usuarios/G7OxEeuoJPiZXDF1 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-10-14T22:13:45.119837" level="INFO">GET Response : url=http://localhost:3000/usuarios/G7OxEeuoJPiZXDF1 
+ status=200, reason=OK 
+ headers={'Access-Control-Allow-Origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '155', 'Date': 'Tue, 15 Oct 2024 01:13:45 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={
+    "nome": "Cristiano Mothe",
+    "email": "cristiano@email.com",
+    "password": "Abc123",
+    "administrador": "true",
+    "_id": "G7OxEeuoJPiZXDF1"
+} 
+ </msg>
+<msg time="2024-10-14T22:13:45.120184" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>alias=api</arg>
+<arg>url=/usuarios/${USER_ID}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.116808" elapsed="0.003423"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-14T22:13:45.123808" level="INFO">${retorno_get} = {'nome': 'Cristiano Mothe', 'email': 'cristiano@email.com', 'password': 'Abc123', 'administrador': 'true', '_id': 'G7OxEeuoJPiZXDF1'}</msg>
+<var>${retorno_get}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.120904" elapsed="0.002974"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${retorno_get}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.124331" elapsed="0.000497"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2024-10-14T22:13:45.128454" level="INFO">DELETE Request : url=http://localhost:3000/usuarios/G7OxEeuoJPiZXDF1 
+ path_url=/usuarios/G7OxEeuoJPiZXDF1 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2024-10-14T22:13:45.128523" level="INFO">DELETE Response : url=http://localhost:3000/usuarios/G7OxEeuoJPiZXDF1 
+ status=200, reason=OK 
+ headers={'Access-Control-Allow-Origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '51', 'Date': 'Tue, 15 Oct 2024 01:13:45 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={
+    "message": "Registro excluído com sucesso"
+} 
+ </msg>
+<arg>alias=api</arg>
+<arg>url=/usuarios/${USER_ID}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-10-14T22:13:45.125039" elapsed="0.003548"/>
+</kw>
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2024-10-14T22:13:45.128846" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2024-10-14T22:13:45.128746" elapsed="0.000153"/>
+</kw>
+<status status="PASS" start="2024-10-14T22:13:45.101203" elapsed="0.027817"/>
+</test>
+<status status="PASS" start="2024-10-14T22:13:45.027024" elapsed="0.102296"/>
+</suite>
+<status status="PASS" start="2024-10-14T22:13:45.015398" elapsed="0.114264"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="TestCases">TestCases</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="Tests">TestCases.Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
