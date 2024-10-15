@@ -2,38 +2,53 @@
 
 Library        RequestsLibrary
 
+Suite Setup            Criar Sessão
+Suite Teardown         Encerrar Sessão
+
 *** Test Cases ***
 Cenário 1 - Criar Usuário
-    # CRIAR
+
+    ${user_id}    Criação de Usuário    
+    Buscar Usuário       user_id=${user_id}
+    Atualizar Usuário    user_id=${user_id}
+    Buscar Usuário       user_id=${user_id}
+    Deletar Usuário      user_id=${user_id}       
+
+*** Keywords ***
+Criação de Usuário
     
-    # CRIAR SESSÃO
-    Create Session    alias=api    url=http://localhost:3000
-
-    # CABEÇALHO
     ${header}    Create Dictionary    Content-Type=application/json
-
-    # ENVIANDO REQUISIÇÕES
+    
     ${response}    POST On Session    alias=api    url=/usuarios    headers=${header}
     ...    data={"nome": "Cristiano Ferreira", "email": "cristiano@email.com", "password": "Abc123", "administrador": "true"}
-    ${USER_ID}    Set Variable    ${response.json()['_id']}
-    Log To Console    ${USER_ID}
+    ${user_id}    Set Variable    ${response.json()['_id']}
+    
+    RETURN       ${user_id}
 
-    # LER
-    ${response}    GET On Session    alias=api      url=/usuarios/${USER_ID}
+Buscar Usuário
+    [Arguments]    ${user_id}
+
+    ${response}    GET On Session    alias=api      url=/usuarios/${user_id}
     ${retorno_get}    Set Variable    ${response.json()}
-    Log To Console    ${retorno_get}
+    
+Atualizar Usuário
+    [Arguments]    ${user_id}
 
-    # ATUALIZAR
-    PUT On Session    alias=api    url=/usuarios/${USER_ID}    headers=${header} 
+    ${header}    Create Dictionary    Content-Type=application/json
+    
+    ${response}    PUT On Session    alias=api    url=/usuarios/${user_id}    headers=${header} 
     ...    data={"nome": "Cristiano Mothe", "email": "cristiano@email.com", "password": "Abc123", "administrador": "true"}
     ${retorno_put}    Set Variable    ${response.json()}
-    Log To Console    ${retorno_put}
+    
+Deletar Usuário
+    [Arguments]    ${user_id}
 
-    ${response}    GET On Session    alias=api      url=/usuarios/${USER_ID}
-    ${retorno_get}    Set Variable    ${response.json()}
-    Log To Console    ${retorno_get}
+    DELETE On Session    alias=api    url=/usuarios/${user_id}
 
-    # DELETE
-    DELETE On Session    alias=api    url=/usuarios/${USER_ID}
+Criar Sessão
+
+    Create Session    alias=api    url=http://localhost:3000
+
+Encerrar Sessão
 
     Delete All Sessions
