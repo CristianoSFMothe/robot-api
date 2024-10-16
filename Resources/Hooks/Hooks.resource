@@ -5,10 +5,10 @@ Resource    ../../Resources/Config/Libs.resource
 
 *** Keywords ***
 
-Criar Sessão
+Start Session
 
     Create Session    alias=api    url=http://localhost:3000
 
-Encerrar Sessão
+Log Out
 
     Delete All Sessions

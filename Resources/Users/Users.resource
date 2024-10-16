@@ -7,7 +7,7 @@ User Creation
     
     ${header}    Create Dictionary    Content-Type=application/json
     
-    ${response}    POST On Session    alias=api    url=/usuarios    headers=${header}
+    ${response}    POST On Session    alias=api        url=/usuarios    headers=${header}
     ...    data={"nome": "Cristiano Ferreira", "email": "cristiano@email.com", "password": "Abc123", "administrador": "true"}
     ...    expected_status=201   
     
@@ -39,7 +39,6 @@ Update User
     ...    data={"nome": "Cristiano Mothe", "email": "cristiano@email.com", "password": "Abc123", "administrador": "true"}
     ...    expected_status=200
     ${retorno_put}    Set Variable    ${response.json()}
-
     
 Delete User
     [Arguments]    ${user_id}    

@@ -2,8 +2,8 @@
 
 Resource    ../Resources/Base.resource
 
-Suite Setup            Criar Sessão
-Suite Teardown         Encerrar Sessão
+Suite Setup            Start Session
+Suite Teardown         Log Out
 
 *** Test Cases ***
 Scenario 1 - Successful user creation
