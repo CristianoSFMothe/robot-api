@@ -5,7 +5,10 @@ Resource    ../Resources/Config/Libs.resource
 
 Resource    ../Resources/Hooks/Hooks.resource
 
-Resource    ../Resources/Users/Users.resource
+Resource    ../Resources/Users/Create_user.resource
+Resource    ../Resources/Users/Delete_user.resource
+Resource    ../Resources/Users/Get_user.resource
+Resource    ../Resources/Users/Update_user.resource
 
 Resource    ../Resources/Product/Create_product.resource
 Resource    ../Resources/Product/Get_product.resource

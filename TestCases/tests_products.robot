@@ -8,13 +8,14 @@ Suite Setup            Start Session
 Suite Teardown         Log Out
 
 *** Variables ***
-&{product_1}    nome=Bola de Futebol Society    preco=100    quantidade=3     descricao=Bola
-&{product_2}    nome=Bola de Vôlei              preco=150    quantidade=10    descricao=Bola
+&{PRODUCT_!}    nome=Bola de Futebol Society    preco=100    quantidade=3     descricao=Bola
+&{PRODUCT_2}    nome=Bola de Vôlei              preco=150    quantidade=10    descricao=Bola
+&{USER}         nome=Cristiano Ferreira         email=cristiano@email.com     password=Abc123    administrador=true
 
 *** Test Cases ***
 Scenario 1: Product Creation
 
-  ${user_id}          User Creation    
+  ${user_id}          User Creation    ${USER}    
   ${token}            Authentication     
   ...    email=cristiano@email.com   
   ...    password=Abc123    
@@ -22,7 +23,7 @@ Scenario 1: Product Creation
   ...    message=Login realizado com sucesso
 
     ${product_id}    Create Product
-    ...    token=${token}    file=${product_1} 
+    ...    token=${token}    file=${PRODUCT_!} 
     ...    expecet_status=201
     ...    message=Cadastro realizado com sucesso
 
@@ -31,7 +32,7 @@ Scenario 1: Product Creation
 
     Update Product    auth_token=${token}    
     ...    product_id=${product_id}    
-    ...    file=${product_1}    
+    ...    file=${PRODUCT_!}    
     ...    expecet_status=200
     ...    message=Registro alterado com sucesso
 
@@ -39,4 +40,7 @@ Scenario 1: Product Creation
     ...    product_id=${product_id}
     ...    expected_status=200
 
-    Delete User    user_id=${user_id}
+    Delete User         user_id=${user_id}    
+    ...                 expected_status=200    
+    ...                 USER=${USER}    
+    ...                 message=Registro excluído com sucesso 
