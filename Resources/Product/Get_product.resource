@@ -14,5 +14,3 @@ Search product
     ...            alias=api    url=/produtos/${product_id}    
     ...            headers=${header}   
     ...            expected_status=${expecet_status}
-
-    Log To Console    ${response.json()}    

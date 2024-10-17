@@ -19,7 +19,8 @@ Scenario 1: Product Creation
 
     ${product_id}    Create Product
     ...    token=${token}    file=product_1  
-    ...    expecet_status=201    
+    ...    expecet_status=201
+    ...    message=Cadastro realizado com sucesso
 
     Search product    ${token}    ${product_id}    
     ...    expecet_status=200
@@ -27,6 +28,7 @@ Scenario 1: Product Creation
     Update Product    auth_token=${token}    
     ...    product_id=${product_id}    
     ...    file=product_2   expecet_status=200
+    ...    message=Registro alterado com sucesso
 
     Delete Product    auth_token=${token}     
     ...    product_id=${product_id}

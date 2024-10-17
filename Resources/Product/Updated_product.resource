@@ -5,7 +5,7 @@ Resource    ../../Resources/Config/Libs.resource
 
 *** Keywords ***
 Update Product
-    [Arguments]    ${auth_token}    ${product_id}     ${file}    ${expecet_status}
+    [Arguments]    ${auth_token}    ${product_id}     ${file}    ${expecet_status}     ${message} 
 
     ${header}    Create Dictionary    Content-Type=application/json    
     ...          Authorization=${auth_token}
@@ -24,6 +24,6 @@ Update Product
     ...            expected_status=${expecet_status}
 
     ${response_put}     Set Variable   ${response.json()}
-    Log To Console    ${response_put}
+    ${message}          Set Variable    ${response.json()['message']}
 
     

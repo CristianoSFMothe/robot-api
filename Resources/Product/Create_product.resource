@@ -5,7 +5,7 @@ Resource    ../../Resources/Config/Libs.resource
 
 *** Keywords ***
 Create Product
-    [Arguments]    ${token}    ${file}    ${expecet_status}
+    [Arguments]    ${token}    ${file}    ${expecet_status}    ${message}
 
     IF  "${file}" == "product_1"
         ${body}    Get File    path=${EXECDIR}/Resources/Data/Product/product_1.json
@@ -21,10 +21,11 @@ Create Product
     ...            headers=${header}    data=${body}    
     ...            expected_status=${expecet_status}
 
-    Log To Console    ${response.json()}
-    Log To Console    ${response.json()['_id']}
-
+    ${message}       Set Variable    ${response.json()['message']}
     ${product_id}    Set Variable    ${response.json()['_id']}
+
+    Should Be Equal        ${message}    ${message}
+    Should Not Be Empty    ${token}
 
     RETURN    ${product_id}
     
