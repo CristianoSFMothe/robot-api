@@ -1,7 +1,9 @@
 
 # 🤖 Robot Framework API Automation Project
 
-Este repositório contém testes de automação para a API ServeRest, utilizando o **Robot Framework** e a **RequestsLibrary** para cenários de testes em dispositivos móveis. A API está sendo executada localmente com o comando `npx serverest@latest`.
+Este repositório contém testes de automação para a API ServeRest, utilizando o **Robot Framework** e a **RequestsLibrary** para cenários de testes em dispositivos móveis. A API está sendo executada localmente com o comando:
+
+`npx serverest@latest`.
 
 ## 📂 Estrutura do Projeto
 
@@ -104,11 +106,12 @@ Ficamos felizes com sua contribuição! Veja como você pode colaborar com o pro
 
    - Clone seu fork localmente:
      ```bash
-     git clone https://github.com/seu-usuario/robot-api.git
+     git clone https://github.com/CristianoSFMothe/robot-api
      ```
 
 4. **Crie uma Branch**:
    - Crie uma nova branch para fazer suas alterações:
+   
      ```bash
      git checkout -b minha-branch
      ```
