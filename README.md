@@ -1,6 +1,3 @@
-Aqui está uma versão atualizada do seu README.md, incluindo ícones em cada tópico e uma seção de colaboração para **commits** e **forks**:
-
----
 
 # 🤖 Robot Framework API Automation Project
 
