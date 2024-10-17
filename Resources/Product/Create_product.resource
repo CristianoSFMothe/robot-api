@@ -7,11 +7,11 @@ Resource    ../../Resources/Config/Libs.resource
 Create Product
     [Arguments]    ${token}    ${file}    ${expecet_status}    ${message}
 
-    IF  "${file}" == "product_1"
-        ${body}    Get File    path=${EXECDIR}/Resources/Data/Product/product_1.json
-    ELSE IF    "${file}" == "product_2"        
-        ${body}    Get File    path=${EXECDIR}/Resources/Data/Product/product_2.json        
-    END
+    ${body}    Get File    path=${EXECDIR}/Resources/Data/Product/product_template.json
+    ${body}    Replace String Using Regexp    ${body}    _nome             ${file}[nome]
+    ${body}    Replace String Using Regexp    ${body}    "_preco"          ${file}[preco]
+    ${body}    Replace String Using Regexp    ${body}    "_quantidade"     ${file}[quantidade]
+    ${body}    Replace String Using Regexp    ${body}    _descricao        ${file}[descricao]
 
     ${header}    Create Dictionary    Content-Type=application/json    
     ...          Authorization=${token}

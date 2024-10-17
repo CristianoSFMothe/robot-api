@@ -7,6 +7,10 @@ Resource        ../Resources/Base.resource
 Suite Setup            Start Session
 Suite Teardown         Log Out
 
+*** Variables ***
+&{product_1}    nome=Bola de Futebol Society    preco=100    quantidade=3     descricao=Bola
+&{product_2}    nome=Bola de Vôlei              preco=150    quantidade=10    descricao=Bola
+
 *** Test Cases ***
 Scenario 1: Product Creation
 
@@ -18,7 +22,7 @@ Scenario 1: Product Creation
   ...    message=Login realizado com sucesso
 
     ${product_id}    Create Product
-    ...    token=${token}    file=product_1  
+    ...    token=${token}    file=${product_1} 
     ...    expecet_status=201
     ...    message=Cadastro realizado com sucesso
 
@@ -27,7 +31,8 @@ Scenario 1: Product Creation
 
     Update Product    auth_token=${token}    
     ...    product_id=${product_id}    
-    ...    file=product_2   expecet_status=200
+    ...    file=${product_1}    
+    ...    expecet_status=200
     ...    message=Registro alterado com sucesso
 
     Delete Product    auth_token=${token}     
